@@ -1,0 +1,101 @@
+Path Sum II
+
+Solution
+Given the root of a binary tree and an integer targetSum, return all root-to-leaf paths where each path's sum equals targetSum.
+
+A leaf is a node with no children.
+
+ 
+
+Example 1:
+
+
+Input: root = [5,4,8,11,null,13,4,7,2,null,null,5,1], targetSum = 22
+Output: [[5,4,11,2],[5,8,4,5]]
+Example 2:
+
+
+Input: root = [1,2,3], targetSum = 5
+Output: []
+Example 3:
+
+Input: root = [1,2], targetSum = 0
+Output: []
+ 
+
+Constraints:
+
+The number of nodes in the tree is in the range [0, 5000].
+-1000 <= Node.val <= 1000
+-1000 <= targetSum <= 1000
+
+
+C++	
+1
+/**
+2
+ * Definition for a binary tree node.
+3
+ * struct TreeNode {
+4
+ *     int val;
+5
+ *     TreeNode *left;
+6
+ *     TreeNode *right;
+7
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+8
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+9
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+10
+ * };
+11
+ */
+12
+class Solution {
+13
+public:
+14
+    vector<vector<int>>ans;
+15
+    void dfs(TreeNode* root,vector<int>path,int target,int sum_so_far)
+16
+    {
+17
+        if(!root) return;
+18
+        sum_so_far+=root->val;
+19
+        path.push_back(root->val);
+20
+        if(root->left==NULL && root->right==NULL && sum_so_far==target)
+21
+        ans.push_back(path);
+22
+        if(root->left)
+23
+        dfs(root->left,path,target,sum_so_far);
+24
+        if(root->right)
+25
+        dfs(root->right,path,target,sum_so_far);
+26
+        // path.pop_back();
+27
+    }
+28
+    vector<vector<int>> pathSum(TreeNode* root, int targetSum) {
+29
+        vector<int>path;
+30
+        int sum_so_far=0;
+31
+        dfs(root,path,targetSum,sum_so_far);
+32
+        return ans;
+33
+    }
+34
+};
