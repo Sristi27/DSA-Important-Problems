@@ -1,0 +1,39 @@
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+int countNodes(ListNode*A)
+{
+    int count=1;
+    while(A->next!=NULL)
+    {
+        count++;
+        A=A->next;
+    }
+    return count;
+}
+ListNode* Solution::reverseList(ListNode* A, int k) {
+    if(A==NULL || k==1) return A;
+    int count=countNodes(A);
+    ListNode*dummy=new ListNode(0);
+    dummy->next=A;
+    ListNode*curr=dummy,*prev=dummy,*next;
+    while(count>=k)
+    {
+        curr=prev->next,next=curr->next;
+        for(int i=0;i<k-1;i++)
+        {
+            curr->next=next->next;
+            next->next=prev->next;
+            prev->next=next;
+            next=curr->next;
+        }
+        prev=curr;
+        count-=k;
+    }
+    return dummy->next;
+}
