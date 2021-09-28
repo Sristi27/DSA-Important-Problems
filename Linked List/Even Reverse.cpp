@@ -100,3 +100,59 @@ ListNode* Solution::solve(ListNode* A) {
 }
 
 
+
+PArt 2:
+
+
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+ListNode* reverse(ListNode*head)
+{
+    ListNode*prev=new ListNode(NULL),*curr=head,*next;
+    while(curr)
+    {
+        next=curr->next;
+        curr->next=prev;
+        prev=curr;
+        curr=next;
+    }
+    return prev;
+}
+ListNode* Solution::solve(ListNode* A) {
+    //make a separate list of nodes at even position
+    //reverse that and add to original list 
+    // o(n) & o(n)
+    vector<int>res;
+    ListNode*curr=A,*dummy=new ListNode(NULL),*temp=dummy;
+    int count=1;
+    while(curr)
+    {
+        if(count%2==0)
+        res.push_back(curr->val);
+        curr=curr->next;
+        count++;
+    }
+    count=1;
+    int j=res.size()-1;
+    curr=A;
+    while(curr)
+    {
+        if(count%2==0)
+        {
+            curr->val = res[j];
+            j--;
+        }
+        count++;
+        curr=curr->next;
+    }
+    return A;
+}
+
+
+
