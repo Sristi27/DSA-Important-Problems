@@ -57,3 +57,29 @@ int Solution::numDistinct(string A, string B) {
     dp.resize(A.size(),vector<int>(B.size(),-1));
     return  rec(A,0,B,0);
 }
+
+
+Solution 2 -> DP
+
+
+int numDistinct(string A, string B) {
+        int n=A.size(),m=B.size();
+        int dp[n+1][m+1];
+        memset(dp,0,sizeof(dp));
+        for(int j=0;j<n;j++) dp[j][0]=1;
+        for(int i=1;i<=n;i++)
+        {
+            for(int j=1;j<=min(m,i);j++)
+            {
+                 if(A[i-1]==B[j-1])
+                {
+                    dp[i][j]=(dp[i-1][j] + dp[i-1][j-1]) %mod;
+                }
+                else
+                    dp[i][j]=dp[i-1][j];
+            }
+        }
+    return dp[n][m];
+ } 
+};
+
