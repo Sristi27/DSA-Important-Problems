@@ -67,8 +67,20 @@ Input 7:
 Output 7:
     0
       
-      
-      int Solution::isMatch(const string A, const string B) {
+        
+     Case 1: The character is ‘*’ 
+Here two cases arise  
+
+We can ignore ‘*’ character and move to next character in the Pattern.
+‘*’ character matches with one or more characters in Text. Here we will move to next character in the string.
+Case 2: The character is ‘?’ 
+We can ignore current character in Text and move to next character in the Pattern and Text.
+
+Case 3: The character is not a wildcard character 
+If current character in Text matches with current character in Pattern, we move to next character in the Pattern and Text. If they do not match, wildcard pattern and Text do not match.
+    
+  
+int Solution::isMatch(const string A, const string B) {
     int n=A.size(),m=B.size();
     bool dp[n+1][m+1];
     memset(dp,false,sizeof(dp));
@@ -83,11 +95,11 @@ Output 7:
     {
         for(int j=1;j<=m;j++)
         {
-             if(B[i-1]=='*')
+             if(B[j-1]=='*')
              {
                  dp[i][j]=dp[i-1][j] || dp[i][j-1];
              }
-             else if(B[i-1]=='?' || (A[i-1]==B[j-1]))
+             else if(B[j-1]=='?' || (A[i-1]==B[j-1]))
              {
                  dp[i][j]=dp[i-1][j-1];
              }
