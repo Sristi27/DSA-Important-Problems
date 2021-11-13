@@ -39,6 +39,10 @@ Output: -1
  USE BFS
   Solution:
 
+
+Time Complexity = (8*n*m)
+Space Complexity = (n*m)
+
 class Solution {
 public:
     int shortestPathBinaryMatrix(vector<vector<int>>& grid) {
